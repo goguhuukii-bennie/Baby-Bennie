@@ -32,18 +32,18 @@
         .modal-body { padding: 20px; max-height: 85vh; overflow-y: auto; text-align: center; }
         .main-view { width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: contain; background: #fafafa; border: 1px solid #eee; margin-bottom: 15px; }
         
-        /* จุดสำคัญ: กล่องรายละเอียดที่เว้นวรรคตามชีท */
+        /* กล่องรายละเอียดเว้นวรรคตามชีท */
         .desc-box { 
             text-align: left; font-size: 14px; background: #FFF9FB; padding: 15px; 
             border-radius: 15px; border: 1px dashed var(--main); margin: 15px 0; 
             line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; 
         }
         
-        .preview-section { background: #fdf2f7; padding: 15px; border-radius: 20px; margin-bottom: 15px; text-align: left; border: 1px solid #f6a5c9; }
-        .copy-group { display: flex; gap: 5px; margin-bottom: 10px; }
-        .url-input { flex: 1; background: white; border: 1px solid #f6a5c9; padding: 8px 12px; border-radius: 12px; font-size: 11px; outline: none; }
-        .btn-action-copy { background: var(--main); color: white; border: none; padding: 0 15px; border-radius: 12px; font-size: 12px; cursor: pointer; }
-        .btn-action-open { display: block; background: var(--dark); color: white; text-decoration: none; text-align: center; padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
+        /* ส่วนลิงก์ตัวอย่าง (แบบไม่มีปุ่มคัดลอก) */
+        .preview-section { background: #fdf2f7; padding: 15px; border-radius: 20px; margin-bottom: 15px; text-align: center; border: 1px solid #f6a5c9; }
+        .preview-url-text { font-size: 11px; color: #999; word-break: break-all; margin-bottom: 10px; display: block; }
+        .btn-action-open { display: block; background: var(--dark); color: white; text-decoration: none; text-align: center; padding: 12px; border-radius: 15px; font-size: 14px; font-weight: 500; }
+        
         .btn-line { display: block; background: #06C755; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 18px; }
     </style>
 </head>
@@ -104,7 +104,8 @@
             const filtered = dataStore.filter(i => (i.name && i.name.toLowerCase().includes(search)) && (currentFilter === 'all' || i.cat === currentFilter));
             let html = '';
             filtered.forEach((item) => {
-                let imgUrl = item.img.split(',')[0].trim().match(/https?:\/\/[^\s,"]+/)?.[0] || 'https://via.placeholder.com/400/fff0f6/e889b5?text=No+Image';
+                let imgMatch = item.img.split(',')[0].trim().match(/https?:\/\/[^\s,"]+/);
+                let imgUrl = imgMatch ? imgMatch[0] : 'https://via.placeholder.com/400/fff0f6/e889b5?text=No+Image';
                 html += `<div class="card" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
                     ${item.promo ? `<div class="promo-tag">🔥 PROMO</div>` : ''}
                     <div class="img-container"><img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=M.SHABU'"></div>
@@ -121,11 +122,13 @@
             
             let previewArea = '';
             if(item.preview && item.preview !== "" && item.preview !== "-") {
-                if (item.cat === 'กลุ่ม') {
-                    previewArea = `<div class="preview-section"><span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span><div class="copy-group"><input type="text" value="${item.preview}" id="urlInput" class="url-input" readonly><button class="btn-action-copy" onclick="copyURL()">คัดลอก</button></div><a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a></div>`;
-                } else if (item.cat === 'กลุ่มอื่นๆ') {
-                    previewArea = `<div class="preview-section"><span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span><a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a></div>`;
-                }
+                // แสดงผลเหมือนกันทุกหมวด: โชว์ลิงก์แบบข้อความ และ ปุ่มเปิด
+                previewArea = `
+                <div class="preview-section">
+                    <span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span>
+                    <span class="preview-url-text">${item.preview}</span>
+                    <a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a>
+                </div>`;
             }
 
             document.getElementById('modalBody').innerHTML = `
@@ -144,7 +147,6 @@
             document.body.style.overflow = 'hidden';
         }
 
-        window.copyURL = () => { const input = document.getElementById("urlInput"); input.select(); document.execCommand("copy"); alert("คัดลอกลิงก์ตัวอย่างแล้ว! 🎀"); }
         window.closeModal = () => { document.getElementById('itemModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
         window.filterData = (cat) => {
             currentFilter = cat;
