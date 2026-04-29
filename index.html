@@ -1,37 +1,34 @@
-<!DOCTYPE html>
+ี<!DOCTYPE html>
 <html lang="th">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.SHABU.HOUSE - Final Master</title>
+    <title>M.SHABU.HOUSE - Pro Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; --orange: #FF8C00; }
+        :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; }
         body { background: var(--bg); font-family: 'Mitr', sans-serif; margin: 0; padding: 0; color: #555; overflow-x: hidden; }
 
-        /* Stickers Floating */
+        /* Stickers Floating 🌷🧸🍮🐶 */
         #bg-stickers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .sticker { position: absolute; bottom: -100px; font-size: 28px; opacity: 0.6; animation: floatUp 12s linear infinite; }
+        .sticker { position: absolute; bottom: -100px; font-size: 28px; opacity: 0.5; animation: floatUp 12s linear infinite; }
         @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
 
-        /* Header */
+        /* Header & Search */
         .shop-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); text-align: center; padding: 25px 15px; border-bottom: 3px solid var(--main); }
         .shop-logo { width: 90px; height: auto; border-radius: 20px; margin-bottom: 8px; }
-
-        /* Search Area */
-        .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .search-box { width: 100%; max-width: 500px; margin: 0 auto 12px; display: block; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; font-family: 'Mitr'; }
-        .filter-tabs { display: flex; justify-content: center; gap: 10px; }
-        .tab-btn { padding: 7px 20px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-size: 13px; }
+        .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.95); backdrop-filter: blur(10px); padding: 15px; }
+        .search-box { width: 100%; max-width: 500px; margin: 0 auto 12px; display: block; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; font-family: 'Mitr'; box-sizing: border-box; }
+        .filter-tabs { display: flex; justify-content: center; gap: 8px; }
+        .tab-btn { padding: 6px 18px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-size: 13px; }
         .tab-btn.active { background: var(--main); color: white; }
 
         /* Catalog Grid */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
+        .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(246,165,201,0.25); }
-        
-        .promo-tag { position: absolute; top: 12px; left: 12px; background: var(--accent); color: white; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: 500; z-index: 5; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .promo-tag { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; z-index: 5; font-weight: 500; }
         .img-container { width: 100%; aspect-ratio: 1/1; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-container img { width: 100%; height: 100%; object-fit: contain; }
         .card-content { padding: 15px; text-align: center; }
@@ -43,38 +40,35 @@
         @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #ccc; cursor: pointer; z-index: 10; }
         .modal-body { padding: 25px; max-height: 85vh; overflow-y: auto; text-align: center; }
-        
-        /* Gallery */
-        .main-img-view { width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: contain; background: #fafafa; margin-bottom: 15px; border: 1px solid #eee; }
-        .thumb-list { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+
+        /* Gallery System */
+        .main-img-view { width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: contain; background: #fafafa; margin-bottom: 15px; border: 1px solid #f0f0f0; }
+        .thumb-list { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
         .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 12px; cursor: pointer; border: 2.5px solid transparent; }
         .thumb-img.active { border-color: var(--main); }
 
-        /* Promo Popup Inside Modal */
-        .promo-alert { background: #FFF4E5; border: 1.5px solid #FFB347; color: #D35400; padding: 12px; border-radius: 18px; font-size: 14px; margin-bottom: 15px; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 8px; }
-
-        .modal-desc-box { text-align: left; font-size: 14px; color: #666; white-space: pre-wrap; background: #FFF9FB; padding: 18px; border-radius: 20px; border: 1px dashed var(--main); margin-bottom: 20px; line-height: 1.7; }
-        .modal-desc-box a { color: var(--main); font-weight: bold; text-decoration: underline; word-break: break-all; }
+        /* Promo & Preview Elements */
+        .promo-alert { background: #FFF4E5; border: 1px solid #FFB347; color: #D35400; padding: 12px; border-radius: 18px; font-size: 14px; margin-bottom: 12px; font-weight: 500; }
+        .btn-preview { display: block; background: var(--main); color: white; padding: 10px; border-radius: 15px; text-decoration: none; font-size: 14px; margin-bottom: 12px; font-weight: 500; transition: 0.2s; }
+        .btn-preview:hover { background: var(--dark); }
+        .desc-box { text-align: left; font-size: 14px; color: #666; white-space: pre-wrap; background: #FFF9FB; padding: 18px; border-radius: 20px; border: 1px dashed var(--main); margin-bottom: 15px; line-height: 1.6; }
         
-        .btn-line { display: block; background: #06C755; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 17px; transition: 0.3s; }
-        .btn-line:hover { background: #05b34c; transform: scale(1.02); }
+        .btn-line { display: block; background: #06C755; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 17px; box-shadow: 0 4px 10px rgba(6,199,85,0.3); }
 
         .footer { padding: 40px; text-align: center; }
     </style>
 </head>
 <body>
-
     <div id="bg-stickers"></div>
-
     <header class="shop-header">
         <img src="logo.png" alt="Logo" class="shop-logo" onerror="this.style.display='none'">
-        <h1 style="color:var(--dark); margin:0; font-size:26px;">M.SHABU.HOUSE</h1>
+        <h1>M.SHABU.HOUSE</h1>
     </header>
 
     <div class="search-area">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 พิมพ์ชื่อสินค้าที่ต้องการค้นหา...">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาสินค้าที่ต้องการ...">
         <div class="filter-tabs">
-            <button class="tab-btn active" onclick="filterData('all', this)">สินค้าทั้งหมด</button>
+            <button class="tab-btn active" onclick="filterData('all', this)">ทั้งหมด</button>
             <button class="tab-btn" onclick="filterData('กลุ่ม', this)">กลุ่มของแต่ง</button>
             <button class="tab-btn" onclick="filterData('ฟอนต์', this)">ฟอนต์ลายมือ</button>
         </div>
@@ -83,29 +77,24 @@
     <div class="catalog-grid" id="catalogDisplay"></div>
 
     <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <div class="modal-body" id="modalBody"></div>
-        </div>
+        <div class="modal-content"><span class="close-modal" onclick="closeModal()">&times;</span><div class="modal-body" id="modalBody"></div></div>
     </div>
 
-    <footer class="footer">
-        <a href="https://lin.ee/OdmIxYe" target="_blank" style="color:var(--main); font-size:35px;"><i class="fa-brands fa-line"></i></a>
-    </footer>
+    <footer class="footer"><a href="https://lin.ee/OdmIxYe" target="_blank" style="color:var(--main); font-size:35px;"><i class="fa-brands fa-line"></i></a></footer>
 
     <script>
-        // --- ระบบสติ๊กเกอร์ลอย 🌷🧸🍮🐶 ---
-        const stickerList = ['🌷', '🧸', '🍮', '🐶'];
+        // --- 1. Sticker System ---
+        const stickersIcons = ['🌷', '🧸', '🍮', '🐶'];
         setInterval(() => {
             const s = document.createElement('div');
-            s.className = 'sticker'; s.innerText = stickerList[Math.floor(Math.random() * stickerList.length)];
+            s.className = 'sticker'; s.innerText = stickersIcons[Math.floor(Math.random() * stickersIcons.length)];
             s.style.left = Math.random() * 100 + 'vw';
             s.style.animationDuration = (Math.random() * 5 + 10) + 's';
             document.getElementById('bg-stickers').appendChild(s);
             setTimeout(() => s.remove(), 12000);
         }, 1500);
 
-        // --- ลิงก์ชีท ---
+        // --- 2. Data Logic (แยกสมอง กลุ่ม / ฟอนต์) ---
         const sheetGroupURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=0&single=true&output=csv';
         const sheetFontURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=853596946&single=true&output=csv';
 
@@ -114,37 +103,40 @@
 
         async function init() {
             try {
-                const [r1, r2] = await Promise.all([
-                    fetch(sheetGroupURL).then(res => res.text()),
-                    fetch(sheetFontURL).then(res => res.text())
-                ]);
-                dataStore = [...processCSV(r1, 'กลุ่ม'), ...processCSV(r2, 'ฟอนต์')];
+                const [r1, r2] = await Promise.all([fetch(sheetGroupURL).then(res => res.text()), fetch(sheetFontURL).then(res => res.text())]);
+                dataStore = [...parseCSV(r1, 'กลุ่ม'), ...parseCSV(r2, 'ฟอนต์')];
                 render();
-            } catch (e) { document.getElementById('catalogDisplay').innerHTML = '❌ โหลดข้อมูลไม่สำเร็จ'; }
+            } catch (e) { document.getElementById('catalogDisplay').innerHTML = '❌ โหลดข้อมูลผิดพลาด'; }
         }
 
-        // --- ฟังก์ชันแยก CSV ขั้นสูง แก้บั๊กลิ้งก์/คอมม่า ---
-        function processCSV(text, cat) {
-            const lines = text.split(/\r?\n/).slice(1);
-            return lines.map(line => {
-                // Regex นี้จะแยกคอมม่าได้ถูกต้องแม้ในรายละเอียดจะมีคอมม่าหรือฟันหนู
+        function parseCSV(text, cat) {
+            const lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+            return lines.slice(1).map(line => {
                 const c = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/^"|"$/g, '').trim());
                 if (!c[1]) return null;
 
-                const checkPromo = (v) => (v && v !== "" && v !== "-" && v !== "ไม่มี") ? v : null;
-
-                let item = { img: c[0] || "", name: c[1] || "กำลังอัปเดตชื่อ", type: c[2] || "ทั่วไป", category: cat };
+                const checkPromo = (val) => (val && val !== "" && val !== "-") ? val : null;
 
                 if (cat === 'กลุ่ม') {
-                    item.desc = c[3] || "รอรายละเอียดอัปเดตเร็วๆ นี้ 🎀";
-                    item.price = c[4] || "0";
-                    item.promo = checkPromo(c[5]); // คอลัมน์ F
+                    // กลุ่ม: A=รูป, B=ชื่อ, C=ราคาประเภท, D=รายละเอียด, E=ลิงก์ตัวอย่าง, F=ราคา, G=โปรโมชั่น
+                    return { 
+                        img: c[0], name: c[1], type: c[2], 
+                        desc: c[3] || "ไม่มีรายละเอียด", 
+                        preview: c[4] || "", 
+                        price: c[5] || "0", 
+                        promo: checkPromo(c[6]), 
+                        category: 'กลุ่ม' 
+                    };
                 } else {
-                    item.price = c[3] || "0";
-                    item.promo = checkPromo(c[4]); // คอลัมน์ E
-                    item.desc = "ฟอนต์ลายมือลิขสิทธิ์เฉพาะ M.SHABU.HOUSE เท่านั้น 🎀";
+                    // ฟอนต์: A=รูป, B=ชื่อ, C=ประเภทฟอนต์, D=ราคา, E=โปรโมชั่น
+                    return { 
+                        img: c[0], name: c[1], type: c[2], 
+                        price: c[3] || "0", 
+                        promo: checkPromo(c[4]), 
+                        desc: "ฟอนต์ลายมือลิขสิทธิ์ M.SHABU.HOUSE",
+                        preview: "", category: 'ฟอนต์' 
+                    };
                 }
-                return item;
             }).filter(i => i !== null);
         }
 
@@ -154,59 +146,45 @@
             
             let html = '';
             filtered.forEach((item) => {
-                const globalIdx = dataStore.indexOf(item);
+                const idx = dataStore.indexOf(item);
                 const firstImg = item.img.split(',')[0].trim();
                 html += `
-                    <div class="card" onclick="openModal(${globalIdx})">
+                    <div class="card" onclick="openModal(${idx})">
                         ${item.promo ? `<div class="promo-tag">🔥 PROMO</div>` : ''}
-                        <div class="img-container">
-                            <img src="${firstImg}" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=M.SHABU'">
-                        </div>
+                        <div class="img-container"><img src="${firstImg}" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=M.SHABU'"></div>
                         <div class="card-content">
                             <div style="font-size:15px; color:var(--dark); margin-bottom:5px;">${item.name}</div>
                             <div class="price-tag">${item.price}฿</div>
                         </div>
                     </div>`;
             });
-            document.getElementById('catalogDisplay').innerHTML = html || '<p style="grid-column:1/-1; text-align:center; padding:50px;">ไม่พบรายการที่ค้นหา 🎀</p>';
+            document.getElementById('catalogDisplay').innerHTML = html || '<p style="grid-column:1/-1; text-align:center;">ไม่พบสินค้า 🎀</p>';
         }
 
-        window.openModal = function(index) {
+        function openModal(index) {
             const item = dataStore[index];
             const imgs = item.img.split(',').map(u => u.trim()).filter(u => u !== "");
             
             let galleryHtml = `<img src="${imgs[0] || ''}" id="mainView" class="main-img-view" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=No+Image'">`;
             if (imgs.length > 1) {
-                galleryHtml += '<div class="thumb-list">' + imgs.map((u, i) => 
-                    `<img src="${u}" class="thumb-img ${i===0?'active':''}" onclick="changeImg('${u}', this)">`
-                ).join('') + '</div>';
+                galleryHtml += '<div class="thumb-list">' + imgs.map((u, i) => `<img src="${u}" class="thumb-img ${i===0?'active':''}" onclick="changeImg('${u}', this)">`).join('') + '</div>';
             }
 
-            // ระบบป๊อปอัพโปรโมชั่นเล็กๆ ด้านใน
-            let promoHtml = item.promo ? `<div class="promo-alert"><i class="fa-solid fa-gift"></i> โปรโมชั่น: ${item.promo}</div>` : '';
-
-            // แปลงลิ้งก์ในรายละเอียดให้กดได้จริง
-            const autoLinkDesc = item.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">ลิงก์คลิกดูเพิ่มเติม</a>');
-
             document.getElementById('modalBody').innerHTML = `
-                <div style="font-size:11px; color:#aaa; margin-bottom:5px; text-transform:uppercase;">${item.category} | ${item.type}</div>
+                <div style="font-size:11px; color:#999; margin-bottom:5px;">${item.category} | ${item.type}</div>
                 <h2 style="margin:0 0 15px; color:var(--dark); font-size:22px;">${item.name}</h2>
                 ${galleryHtml}
-                ${promoHtml}
-                <div class="modal-desc-box">${autoLinkDesc}</div>
+                ${item.promo ? `<div class="promo-alert">✨ โปรโมชั่น: ${item.promo}</div>` : ''}
+                ${item.preview ? `<a href="${item.preview}" target="_blank" class="btn-preview">🔍 คลิกดูตัวอย่าง </a>` : ''}
+                <div class="desc-box">${item.desc}</div>
                 <div style="font-size:26px; color:var(--accent); font-weight:bold; margin-bottom:15px;">ราคา ${item.price} บาท</div>
-                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line"><i class="fa-brands fa-line"></i> สนใจสั่งซื้อ คลิกสอบถามทางไลน์</a>
+                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line"><i class="fa-brands fa-line"></i> สั่งซื้อ/สอบถามคลิกทักไลน์</a>
             `;
             document.getElementById('itemModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
-        window.changeImg = (u, el) => {
-            document.getElementById('mainView').src = u;
-            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
-        }
-
+        window.changeImg = (u, el) => { document.getElementById('mainView').src = u; document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active')); el.classList.add('active'); }
         window.closeModal = () => { document.getElementById('itemModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
         window.filterData = (type, btn) => { currentType = type; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); render(); }
         document.getElementById('searchInput').addEventListener('input', render);
