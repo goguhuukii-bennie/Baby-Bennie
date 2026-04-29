@@ -3,76 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.SHABU.HOUSE - Catalog</title>
+    <title>M.SHABU.HOUSE - Gallery Catalog</title>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; --purple: #E2D1F9; }
+        :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; }
         body { background: var(--bg); font-family: 'Mitr', sans-serif; margin: 0; padding: 0; color: #555; overflow-x: hidden; }
 
-        /* Stickers Background */
-        .bg-stickers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
-        .sticker { position: absolute; bottom: -100px; font-size: 24px; opacity: 0.5; animation: floatUp 15s linear infinite; }
-        @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
+        /* --- Background Stickers --- */
+        #bg-stickers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .sticker { position: absolute; bottom: -100px; font-size: 28px; opacity: 0.6; animation: floatUp 12s linear infinite; }
+        @keyframes floatUp { 
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
 
-        /* Header */
-        .shop-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); text-align: center; padding: 30px 15px; border-bottom: 3px solid var(--main); }
-        .shop-logo { width: 100px; height: auto; margin-bottom: 10px; border-radius: 20px; }
-        .shop-header h1 { color: var(--dark); margin: 0; font-size: 28px; }
-
-        /* Search & Filter Area */
-        .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* --- Header & Search --- */
+        .shop-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); text-align: center; padding: 25px 15px; border-bottom: 3px solid var(--main); }
+        .shop-logo { width: 90px; height: auto; border-radius: 20px; margin-bottom: 8px; }
+        .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.9); backdrop-filter: blur(10px); padding: 15px; }
         .search-box { width: 100%; max-width: 500px; margin: 0 auto 12px; display: block; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; font-family: 'Mitr'; box-sizing: border-box; }
         .filter-tabs { display: flex; justify-content: center; gap: 8px; }
-        .tab-btn { padding: 6px 18px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-family: 'Mitr'; transition: 0.3s; }
+        .tab-btn { padding: 6px 18px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-family: 'Mitr'; font-size: 13px; }
         .tab-btn.active { background: var(--main); color: white; }
 
-        /* Catalog Grid */
+        /* --- Grid --- */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: 0 auto; }
-        .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: 0.3s; position: relative; }
+        .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(246,165,201,0.2); }
-        
-        .promo-badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; z-index: 5; }
         .img-container { width: 100%; aspect-ratio: 1/1; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-container img { width: 100%; height: 100%; object-fit: contain; }
-        
         .card-content { padding: 15px; text-align: center; }
-        .card-title { font-size: 17px; color: var(--dark); font-weight: 500; margin-bottom: 5px; }
         .price-tag { color: var(--accent); font-weight: bold; font-size: 18px; }
 
-        /* POPUP MODAL */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 30px; overflow: hidden; position: relative; animation: zoomIn 0.3s ease-out; }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        /* --- Modal & Image Gallery System --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 15px; }
+        .modal-content { background: white; width: 100%; max-width: 450px; border-radius: 30px; overflow: hidden; position: relative; animation: zoomIn 0.3s; }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #aaa; cursor: pointer; z-index: 10; }
-        
-        .modal-body { padding: 20px; max-height: 80vh; overflow-y: auto; text-align: center; }
-        .modal-img { width: 100%; border-radius: 15px; margin-bottom: 15px; object-fit: contain; }
-        .modal-desc-box { text-align: left; font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.6; background: #FFF9FB; padding: 20px; border-radius: 20px; margin: 15px 0; border: 1px dashed var(--main); }
-        .modal-desc-box a { color: var(--main); text-decoration: underline; font-weight: 500; }
-        
-        .btn-line { display: block; background: #06C755; color: white; padding: 14px; border-radius: 50px; text-decoration: none; margin-top: 20px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(6,199,85,0.3); }
+        .modal-body { padding: 20px; max-height: 85vh; overflow-y: auto; text-align: center; }
 
-        .footer { background: var(--white); padding: 40px 20px; text-align: center; border-top: 2px solid var(--main); margin-top: 50px; }
-        .contact-hq a { color: var(--main); font-size: 30px; margin: 0 10px; text-decoration: none; }
+        /* Gallery Layout */
+        .main-img-view { width: 100%; aspect-ratio: 1/1; border-radius: 15px; object-fit: contain; background: #fafafa; margin-bottom: 15px; }
+        .thumb-list { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
+        .thumb-img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+        .thumb-img:hover { border-color: var(--main); }
+        .thumb-img.active { border-color: var(--main); box-shadow: 0 0 5px var(--main); }
+
+        .modal-desc-box { text-align: left; font-size: 14px; color: #666; white-space: pre-wrap; background: #FFF9FB; padding: 15px; border-radius: 15px; border: 1px dashed var(--main); margin: 15px 0; }
+        .btn-line { display: block; background: #06C755; color: white; padding: 12px; border-radius: 50px; text-decoration: none; font-weight: bold; }
+
+        .footer { padding: 30px; text-align: center; color: var(--dark); }
     </style>
 </head>
 <body>
 
-    <div class="bg-stickers" id="stickerContainer"></div>
+    <div id="bg-stickers"></div>
 
     <header class="shop-header">
         <img src="logo.png" alt="Logo" class="shop-logo" onerror="this.style.display='none'">
-        <h1>M.SHABU.HOUSE</h1>
-        <p>🎀 แคตตาล็อกกลุ่มของตกแต่ง & ฟอนต์ 🎀</p>
+        <h1 style="margin:0; font-size:24px; color:var(--dark);">M.SHABU.HOUSE</h1>
     </header>
 
     <div class="search-area">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาชื่อสินค้าที่ต้องการ...">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาสินค้า...">
         <div class="filter-tabs">
             <button class="tab-btn active" onclick="filterData('all', this)">ทั้งหมด</button>
-            <button class="tab-btn" onclick="filterData('กลุ่ม', this)">เฉพาะกลุ่ม</button>
-            <button class="tab-btn" onclick="filterData('ฟอนต์', this)">เฉพาะฟอนต์</button>
+            <button class="tab-btn" onclick="filterData('กลุ่ม', this)">กลุ่ม</button>
+            <button class="tab-btn" onclick="filterData('ฟอนต์', this)">ฟอนต์</button>
         </div>
     </div>
 
@@ -86,23 +86,23 @@
     </div>
 
     <footer class="footer">
-        <div style="color:var(--dark); font-weight:500; margin-bottom: 10px;">✨ ติดต่อแอดมิน (HQ) ✨</div>
-        <div class="contact-hq">
-            <a href="https://lin.ee/OdmIxYe" target="_blank"><i class="fa-brands fa-line"></i></a>
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-        </div>
+        <a href="https://lin.ee/OdmIxYe" target="_blank" style="color:var(--main); font-size:30px;"><i class="fa-brands fa-line"></i></a>
+        <p style="font-size:12px; margin-top:10px;">M.SHABU.HOUSE Catalog</p>
     </footer>
 
     <script>
         // Sticker System
-        const icons = ['🌷', '🐶', '🍮', '🧸'];
-        setInterval(() => {
+        const stickers = ['🌷', '🧸', '🍮', '🐶'];
+        function createSticker() {
             const s = document.createElement('div');
-            s.className = 'sticker'; s.innerText = icons[Math.floor(Math.random()*icons.length)];
-            s.style.left = Math.random()*100+'vw'; s.style.fontSize = (Math.random()*20+20)+'px';
-            document.getElementById('stickerContainer').appendChild(s);
-            setTimeout(() => s.remove(), 15000);
-        }, 1500);
+            s.className = 'sticker';
+            s.innerText = stickers[Math.floor(Math.random() * stickers.length)];
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.animationDuration = (Math.random() * 5 + 10) + 's';
+            document.getElementById('bg-stickers').appendChild(s);
+            setTimeout(() => s.remove(), 12000);
+        }
+        setInterval(createSticker, 1500);
 
         const sheetGroupURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=0&single=true&output=csv';
         const sheetFontURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=853596946&single=true&output=csv';
@@ -116,7 +116,7 @@
                 const t1 = await r1.text(); const t2 = await r2.text();
                 dataStore = [...parseCSV(t1, 'กลุ่ม'), ...parseCSV(t2, 'ฟอนต์')];
                 render();
-            } catch (e) { document.getElementById('catalogDisplay').innerHTML = '❌ โหลดข้อมูลไม่สำเร็จ'; }
+            } catch (e) { console.error(e); }
         }
 
         function parseCSV(text, catName) {
@@ -124,26 +124,9 @@
             return lines.map(line => {
                 const c = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/^"|"$/g, '').trim());
                 if (c.length < 3 || !c[1]) return null;
-
-                if (catName === 'กลุ่ม') {
-                    // แผ่นกลุ่ม: A=รูป, B=ชื่อ, C=ประเภท, D=รายละเอียด, E=ราคา, F=โปร
-                    return { 
-                        img: c[0], name: c[1], type: c[2], 
-                        desc: c[3] || 'ไม่มีรายละเอียดเพิ่มเติม', 
-                        price: c[4], 
-                        promo: (c[5] && c[5] !== '-') ? c[5] : '', 
-                        category: 'กลุ่ม' 
-                    };
-                } else {
-                    // แผ่นฟอนต์: A=รูป, B=ชื่อ, C=ประเภท, D=ราคา, E=โปร
-                    return { 
-                        img: c[0], name: c[1], type: c[2], 
-                        price: c[3], 
-                        promo: (c[4] && c[4] !== '-') ? c[4] : '', 
-                        desc: 'ฟอนต์ลายมือลิขสิทธิ์จาก M.SHABU.HOUSE', 
-                        category: 'ฟอนต์' 
-                    };
-                }
+                return catName === 'กลุ่ม' ? 
+                    { img: c[0], name: c[1], type: c[2], desc: c[3] || '', price: c[4] || '0', promo: c[5], category: 'กลุ่ม' } :
+                    { img: c[0], name: c[1], type: c[2], price: c[3] || '0', promo: c[4], desc: 'ฟอนต์ลายมือลิขสิทธิ์', category: 'ฟอนต์' };
             }).filter(i => i !== null);
         }
 
@@ -157,41 +140,49 @@
                 const idx = dataStore.indexOf(item);
                 html += `
                     <div class="card" onclick="openModal(${idx})">
-                        ${item.promo ? `<div class="promo-badge">${item.promo}</div>` : ''}
-                        <div class="img-container">
-                            <img src="${firstImg}" onerror="this.src='https://via.placeholder.com/300/fff0f6/e889b5?text=No+Image'">
-                        </div>
+                        <div class="img-container"><img src="${firstImg}"></div>
                         <div class="card-content">
-                            <div class="card-title">${item.name}</div>
+                            <div style="font-size:15px; color:var(--dark);">${item.name}</div>
                             <div class="price-tag">${item.price}฿</div>
                         </div>
                     </div>`;
             });
-            document.getElementById('catalogDisplay').innerHTML = html || '<div style="grid-column:1/-1; text-align:center; padding:50px;">ไม่พบรายการที่ค้นหา 🎀</div>';
+            document.getElementById('catalogDisplay').innerHTML = html;
         }
 
         function openModal(index) {
             const item = dataStore[index];
             const imgs = item.img.split(',').map(u => u.trim()).filter(u => u !== "");
-            let imgHtml = imgs.map(u => `<img src="${u}" class="modal-img" onerror="this.style.display='none'">`).join('');
-            const descLink = item.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">คลิกดูเพิ่มเติม</a>');
+            
+            // สร้าง Thumbnail list
+            let thumbHtml = '';
+            if (imgs.length > 1) {
+                thumbHtml = '<div class="thumb-list">' + imgs.map((u, i) => 
+                    `<img src="${u}" class="thumb-img ${i===0?'active':''}" onclick="switchMainImg('${u}', this)">`
+                ).join('') + '</div>';
+            }
 
             document.getElementById('modalBody').innerHTML = `
-                <div style="font-size:11px; color:#999; margin-bottom:5px; text-transform:uppercase;">${item.category} | ${item.type}</div>
-                <h2 style="margin:0 0 15px; color:var(--dark); font-size:22px;">${item.name}</h2>
-                <div class="modal-img-list">${imgHtml}</div>
-                <div class="modal-desc-box">${descLink}</div>
-                <div style="font-size:26px; color:var(--accent); font-weight:bold;">ราคา ${item.price} บาท</div>
-                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line">
-                    <i class="fa-brands fa-line"></i> สนใจสั่งซื้อ สอบถามคลิกทักไลน์
-                </a>
+                <img src="${imgs[0]}" id="mainView" class="main-img-view">
+                ${thumbHtml}
+                <h3 style="margin:10px 0; color:var(--dark);">${item.name}</h3>
+                <div class="modal-desc-box">${item.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">ลิงก์</a>')}</div>
+                <div style="font-size:22px; color:var(--accent); font-weight:bold; margin-bottom:15px;">${item.price} บาท</div>
+                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line">สั่งซื้อทาง LINE</a>
             `;
             document.getElementById('itemModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
 
+        // ฟังก์ชันสลับรูปหลัก
+        window.switchMainImg = function(url, el) {
+            document.getElementById('mainView').src = url;
+            document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
         function closeModal() { document.getElementById('itemModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
-        window.onclick = function(e) { if (e.target == document.getElementById('itemModal')) closeModal(); }
+        window.onclick = (e) => { if (e.target == document.getElementById('itemModal')) closeModal(); }
         function filterData(type, btn) { currentType = type; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); render(); }
         document.getElementById('searchInput').addEventListener('input', render);
         init();
