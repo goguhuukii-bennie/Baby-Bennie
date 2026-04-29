@@ -10,51 +10,51 @@
         :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; --purple: #E2D1F9; }
         body { background: var(--bg); font-family: 'Mitr', sans-serif; margin: 0; padding: 0; color: #555; overflow-x: hidden; }
 
-        /* Stickers BG */
+        /* Stickers Background */
         .bg-stickers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
         .sticker { position: absolute; bottom: -100px; font-size: 24px; opacity: 0.5; animation: floatUp 15s linear infinite; }
         @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
 
         /* Header */
-        .shop-header { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(5px); text-align: center; padding: 30px 15px; border-bottom: 3px solid var(--main); }
-        .shop-logo { width: 110px; height: auto; border-radius: 20px; margin-bottom: 8px; }
+        .shop-header { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px); text-align: center; padding: 30px 15px; border-bottom: 3px solid var(--main); }
+        .shop-logo { width: 100px; height: auto; margin-bottom: 10px; border-radius: 20px; }
         .shop-header h1 { color: var(--dark); margin: 0; font-size: 28px; }
 
-        /* Sticky Search */
+        /* Search & Filter Area */
         .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.95); backdrop-filter: blur(10px); padding: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .search-box { width: 100%; max-width: 500px; margin: 0 auto 12px; display: block; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; font-family: 'Mitr'; box-sizing: border-box; }
-        .filter-tabs { display: flex; justify-content: center; gap: 10px; }
-        .tab-btn { padding: 7px 20px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-family: 'Mitr'; font-size: 13px; }
+        .filter-tabs { display: flex; justify-content: center; gap: 8px; }
+        .tab-btn { padding: 6px 18px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-family: 'Mitr'; transition: 0.3s; }
         .tab-btn.active { background: var(--main); color: white; }
 
         /* Catalog Grid */
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: 0 auto; }
         .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: 0.3s; position: relative; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(246,165,201,0.25); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(246,165,201,0.2); }
         
-        .promo-pin { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 500; z-index: 5; }
+        .promo-badge { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; z-index: 5; }
         .img-container { width: 100%; aspect-ratio: 1/1; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-container img { width: 100%; height: 100%; object-fit: contain; }
         
         .card-content { padding: 15px; text-align: center; }
         .card-title { font-size: 17px; color: var(--dark); font-weight: 500; margin-bottom: 5px; }
-        .price-tag { color: var(--accent); font-weight: 600; font-size: 18px; }
+        .price-tag { color: var(--accent); font-weight: bold; font-size: 18px; }
 
-        /* Popup Modal */
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); justify-content: center; align-items: center; padding: 20px; }
+        /* POPUP MODAL */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 30px; overflow: hidden; position: relative; animation: zoomIn 0.3s ease-out; }
-        @keyframes zoomIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 32px; color: #ccc; cursor: pointer; z-index: 10; }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 30px; color: #aaa; cursor: pointer; z-index: 10; }
         
-        .modal-body { padding: 20px; max-height: 85vh; overflow-y: auto; text-align: center; }
-        .modal-img { width: 100%; border-radius: 15px; margin-bottom: 10px; }
+        .modal-body { padding: 20px; max-height: 80vh; overflow-y: auto; text-align: center; }
+        .modal-img { width: 100%; border-radius: 15px; margin-bottom: 15px; object-fit: contain; }
         .modal-desc-box { text-align: left; font-size: 14px; color: #666; white-space: pre-wrap; line-height: 1.6; background: #FFF9FB; padding: 20px; border-radius: 20px; margin: 15px 0; border: 1px dashed var(--main); }
-        .modal-desc-box a { color: var(--main); font-weight: 500; text-decoration: underline; }
-
-        .btn-line { display: block; background: #06C755; color: white; padding: 14px; border-radius: 50px; text-decoration: none; margin-top: 15px; font-weight: 500; }
+        .modal-desc-box a { color: var(--main); text-decoration: underline; font-weight: 500; }
+        
+        .btn-line { display: block; background: #06C755; color: white; padding: 14px; border-radius: 50px; text-decoration: none; margin-top: 20px; font-weight: bold; font-size: 16px; box-shadow: 0 4px 10px rgba(6,199,85,0.3); }
 
         .footer { background: var(--white); padding: 40px 20px; text-align: center; border-top: 2px solid var(--main); margin-top: 50px; }
-        .contact-hq a { color: var(--main); font-size: 30px; margin: 0 12px; text-decoration: none; }
+        .contact-hq a { color: var(--main); font-size: 30px; margin: 0 10px; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -68,7 +68,7 @@
     </header>
 
     <div class="search-area">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาชื่อสินค้า...">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาชื่อสินค้าที่ต้องการ...">
         <div class="filter-tabs">
             <button class="tab-btn active" onclick="filterData('all', this)">ทั้งหมด</button>
             <button class="tab-btn" onclick="filterData('กลุ่ม', this)">เฉพาะกลุ่ม</button>
@@ -86,10 +86,10 @@
     </div>
 
     <footer class="footer">
-        <div style="color:var(--dark); font-weight:500; margin-bottom: 10px;">✨ ติดต่อศูนย์ใหญ่ (HQ) ✨</div>
+        <div style="color:var(--dark); font-weight:500; margin-bottom: 10px;">✨ ติดต่อแอดมิน (HQ) ✨</div>
         <div class="contact-hq">
             <a href="https://lin.ee/OdmIxYe" target="_blank"><i class="fa-brands fa-line"></i></a>
-            <a href="#" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
         </div>
     </footer>
 
@@ -104,7 +104,6 @@
             setTimeout(() => s.remove(), 15000);
         }, 1500);
 
-        // URL จากชีทของคุณ
         const sheetGroupURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=0&single=true&output=csv';
         const sheetFontURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=853596946&single=true&output=csv';
 
@@ -120,18 +119,30 @@
             } catch (e) { document.getElementById('catalogDisplay').innerHTML = '❌ โหลดข้อมูลไม่สำเร็จ'; }
         }
 
-        function parseCSV(text, cat) {
+        function parseCSV(text, catName) {
             const lines = text.split(/\r?\n/).slice(1);
             return lines.map(line => {
                 const c = line.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(v => v.replace(/^"|"$/g, '').trim());
                 if (c.length < 3 || !c[1]) return null;
 
-                if (cat === 'กลุ่ม') {
+                if (catName === 'กลุ่ม') {
                     // แผ่นกลุ่ม: A=รูป, B=ชื่อ, C=ประเภท, D=รายละเอียด, E=ราคา, F=โปร
-                    return { img: c[0], name: c[1], type: c[2], desc: c[3] || '', price: c[4], promo: c[5] || '', category: 'กลุ่ม' };
+                    return { 
+                        img: c[0], name: c[1], type: c[2], 
+                        desc: c[3] || 'ไม่มีรายละเอียดเพิ่มเติม', 
+                        price: c[4], 
+                        promo: (c[5] && c[5] !== '-') ? c[5] : '', 
+                        category: 'กลุ่ม' 
+                    };
                 } else {
-                    // แผ่นฟอนต์: A=รูป, B=ชื่อ, C=ประเภท, D=ราคา, E=โปร (ไม่มีรายละเอียด)
-                    return { img: c[0], name: c[1], type: c[2], price: c[3], promo: c[4] || '', desc: 'ฟอนต์ลายมือลิขสิทธิ์ M.SHABU.HOUSE', category: 'ฟอนต์' };
+                    // แผ่นฟอนต์: A=รูป, B=ชื่อ, C=ประเภท, D=ราคา, E=โปร
+                    return { 
+                        img: c[0], name: c[1], type: c[2], 
+                        price: c[3], 
+                        promo: (c[4] && c[4] !== '-') ? c[4] : '', 
+                        desc: 'ฟอนต์ลายมือลิขสิทธิ์จาก M.SHABU.HOUSE', 
+                        category: 'ฟอนต์' 
+                    };
                 }
             }).filter(i => i !== null);
         }
@@ -143,10 +154,10 @@
             let html = '';
             filtered.forEach((item) => {
                 const firstImg = item.img.split(',')[0].trim();
-                const globalIndex = dataStore.indexOf(item);
+                const idx = dataStore.indexOf(item);
                 html += `
-                    <div class="card" onclick="openModal(${globalIndex})">
-                        ${item.promo && item.promo !== '-' ? `<div class="promo-pin">${item.promo}</div>` : ''}
+                    <div class="card" onclick="openModal(${idx})">
+                        ${item.promo ? `<div class="promo-badge">${item.promo}</div>` : ''}
                         <div class="img-container">
                             <img src="${firstImg}" onerror="this.src='https://via.placeholder.com/300/fff0f6/e889b5?text=No+Image'">
                         </div>
@@ -156,22 +167,24 @@
                         </div>
                     </div>`;
             });
-            document.getElementById('catalogDisplay').innerHTML = html || 'ไม่พบรายการ 🎀';
+            document.getElementById('catalogDisplay').innerHTML = html || '<div style="grid-column:1/-1; text-align:center; padding:50px;">ไม่พบรายการที่ค้นหา 🎀</div>';
         }
 
         function openModal(index) {
             const item = dataStore[index];
-            const imgs = item.img.split(',').map(u => u.trim()).filter(u => u);
+            const imgs = item.img.split(',').map(u => u.trim()).filter(u => u !== "");
             let imgHtml = imgs.map(u => `<img src="${u}" class="modal-img" onerror="this.style.display='none'">`).join('');
             const descLink = item.desc.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank">คลิกดูเพิ่มเติม</a>');
 
             document.getElementById('modalBody').innerHTML = `
-                <div style="font-size:11px; color:#999; margin-bottom:5px;">${item.category} | ${item.type}</div>
-                <h2 style="margin:0 0 15px; color:var(--dark);">${item.name}</h2>
+                <div style="font-size:11px; color:#999; margin-bottom:5px; text-transform:uppercase;">${item.category} | ${item.type}</div>
+                <h2 style="margin:0 0 15px; color:var(--dark); font-size:22px;">${item.name}</h2>
                 <div class="modal-img-list">${imgHtml}</div>
-                <div class="modal-desc-box">${descLink || 'ไม่มีรายละเอียดเพิ่มเติม'}</div>
-                <div style="font-size:24px; color:var(--accent); font-weight:bold;">ราคา ${item.price} บาท</div>
-                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line"><i class="fa-brands fa-line"></i> สนใจสั่งซื้อ สอบถามคลิกทักไลน์</a>
+                <div class="modal-desc-box">${descLink}</div>
+                <div style="font-size:26px; color:var(--accent); font-weight:bold;">ราคา ${item.price} บาท</div>
+                <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line">
+                    <i class="fa-brands fa-line"></i> สนใจสั่งซื้อ สอบถามคลิกทักไลน์
+                </a>
             `;
             document.getElementById('itemModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
