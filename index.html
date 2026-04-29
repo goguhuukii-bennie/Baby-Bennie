@@ -32,16 +32,16 @@
         .modal-body { padding: 20px; max-height: 85vh; overflow-y: auto; text-align: center; }
         .main-view { width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: contain; background: #fafafa; border: 1px solid #eee; margin-bottom: 15px; }
         
-        /* กล่องรายละเอียดเว้นวรรคตามชีท */
+        /* รายละเอียด: เว้นวรรคตามชีทเป๊ะๆ */
         .desc-box { 
             text-align: left; font-size: 14px; background: #FFF9FB; padding: 15px; 
             border-radius: 15px; border: 1px dashed var(--main); margin: 15px 0; 
             line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; 
         }
         
-        /* ส่วนลิงก์ตัวอย่าง (แบบไม่มีปุ่มคัดลอก) */
+        /* ลิงก์ตัวอย่าง: ตัดปุ่มคัดลอกทิ้งแล้ว */
         .preview-section { background: #fdf2f7; padding: 15px; border-radius: 20px; margin-bottom: 15px; text-align: center; border: 1px solid #f6a5c9; }
-        .preview-url-text { font-size: 11px; color: #999; word-break: break-all; margin-bottom: 10px; display: block; }
+        .preview-url-text { font-size: 11px; color: #999; word-break: break-all; margin-bottom: 10px; display: block; opacity: 0.7; }
         .btn-action-open { display: block; background: var(--dark); color: white; text-decoration: none; text-align: center; padding: 12px; border-radius: 15px; font-size: 14px; font-weight: 500; }
         
         .btn-line { display: block; background: #06C755; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 18px; }
@@ -75,8 +75,7 @@
         function loadSheet(url, cat) {
             return new Promise((resolve) => {
                 Papa.parse(url, {
-                    download: true,
-                    header: false,
+                    download: true, header: false, skipEmptyLines: true,
                     complete: function(results) {
                         const checkP = (v) => (v && v.trim() !== "" && v.trim() !== "-") ? v.trim() : null;
                         const d = results.data.slice(1).map(c => {
@@ -84,6 +83,7 @@
                             if (cat === 'ฟอนต์') {
                                 return { img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), price: clean(c[3]), promo: checkP(clean(c[4])), desc: 'ฟอนต์ลายมือลิขสิทธิ์ M.SHABU.HOUSE', preview: '', cat: 'ฟอนต์' };
                             } else {
+                                // ดึงคอลัมน์ D (index 3) มาเป็น desc ให้ กลุ่มอื่นๆ ด้วย
                                 return { img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), desc: clean(c[3]), preview: clean(c[4]), price: clean(c[5]), promo: checkP(clean(c[6])), cat: cat };
                             }
                         }).filter(x => x);
@@ -122,7 +122,7 @@
             
             let previewArea = '';
             if(item.preview && item.preview !== "" && item.preview !== "-") {
-                // แสดงผลเหมือนกันทุกหมวด: โชว์ลิงก์แบบข้อความ และ ปุ่มเปิด
+                // แสดงผลเหมือนกันหมด: มีแค่ข้อความลิงก์กับปุ่มเปิด (ไม่มีปุ่มคัดลอกแล้ว)
                 previewArea = `
                 <div class="preview-section">
                     <span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span>
@@ -133,12 +133,12 @@
 
             document.getElementById('modalBody').innerHTML = `
                 <h2 style="color:var(--dark); margin-top:0; font-size:22px;">${item.name}</h2>
-                <img src="${imgs[0]}" id="mainV" class="main-view">
+                <img src="${imgs[0] || ''}" id="mainV" class="main-view">
                 <div style="display:flex; gap:8px; justify-content:center; margin-bottom:15px; flex-wrap:wrap;">
                     ${imgs.map(u => `<img src="${u}" style="width:50px;height:50px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid #eee" onclick="document.getElementById('mainV').src='${u}'">`).join('')}
                 </div>
                 ${item.promo ? `<div style="background:#fff4e5;color:#d35400;padding:12px;border-radius:15px;font-size:14px;margin-bottom:12px;font-weight:500;">🔥 โปรโมชั่น: ${item.promo}</div>` : ''}
-                <div class="desc-box">${item.desc}</div>
+                <div class="desc-box">${item.desc || 'ไม่มีรายละเอียดเพิ่มเติม'}</div>
                 ${previewArea}
                 <div style="font-size:26px; color:var(--accent); font-weight:bold; margin-bottom:15px;">ราคา ${item.price} บาท</div>
                 <a href="https://lin.ee/OdmIxYe" target="_blank" class="btn-line">สนใจสั่งซื้อ คลิกทักไลน์</a>
