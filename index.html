@@ -3,63 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>M.SHABU.HOUSE - Pro Catalog</title>
+    <title>M.SHABU.HOUSE - Master Catalog</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root { --bg: #FFF0F6; --main: #F6A5C9; --dark: #E889B5; --white: #FFFFFF; --accent: #FF6B6B; }
         body { background: var(--bg); font-family: 'Mitr', sans-serif; margin: 0; padding: 0; color: #555; overflow-x: hidden; }
-        
-        /* Floating Stickers 🌷🧸🍮🐶 */
         #bg-stickers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
         .sticker { position: absolute; bottom: -100px; font-size: 28px; opacity: 0.5; animation: floatUp 12s linear infinite; }
         @keyframes floatUp { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; } }
-
         .shop-header { background: rgba(255, 255, 255, 0.85); text-align: center; padding: 20px; border-bottom: 3px solid var(--main); }
         .search-area { position: sticky; top: 0; z-index: 100; background: rgba(255, 240, 246, 0.95); padding: 15px; backdrop-filter: blur(10px); }
         .search-box { width: 100%; max-width: 500px; margin: 0 auto 10px; display: block; padding: 12px 20px; border-radius: 25px; border: 2px solid var(--main); outline: none; box-sizing: border-box; }
-        
         .tab-container { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-        .tab-btn { padding: 8px 15px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-size: 12px; font-family: 'Mitr'; transition: 0.2s; }
+        .tab-btn { padding: 8px 15px; border-radius: 20px; border: 1px solid var(--main); background: white; cursor: pointer; font-size: 12px; transition: 0.2s; font-family: 'Mitr'; }
         .tab-btn.active { background: var(--main); color: white; }
-
         .catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
         .card { background: var(--white); border-radius: 25px; border: 2px solid var(--main); overflow: hidden; cursor: pointer; transition: 0.3s; position: relative; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(246,165,201,0.2); }
         .promo-tag { position: absolute; top: 10px; left: 10px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px; z-index: 5; font-weight: 500; }
-
         .img-container { width: 100%; aspect-ratio: 1/1; background: #fff; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .img-container img { width: 100%; height: 100%; object-fit: contain; }
         .card-content { padding: 15px; text-align: center; }
-
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 15px; }
         .modal-content { background: white; width: 100%; max-width: 480px; border-radius: 30px; position: relative; animation: zoomIn 0.3s; overflow: hidden; }
         @keyframes zoomIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
         .modal-body { padding: 20px; max-height: 85vh; overflow-y: auto; text-align: center; }
         .main-view { width: 100%; aspect-ratio: 1/1; border-radius: 20px; object-fit: contain; background: #fafafa; border: 1px solid #eee; margin-bottom: 15px; }
-        .thumb-list { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 15px; }
-        .thumb-img { width: 55px; height: 55px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
-        .thumb-img.active { border-color: var(--main); }
-
+        
+        /* จุดสำคัญ: กล่องรายละเอียดที่เว้นวรรคตามชีท */
+        .desc-box { 
+            text-align: left; font-size: 14px; background: #FFF9FB; padding: 15px; 
+            border-radius: 15px; border: 1px dashed var(--main); margin: 15px 0; 
+            line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; 
+        }
+        
         .preview-section { background: #fdf2f7; padding: 15px; border-radius: 20px; margin-bottom: 15px; text-align: left; border: 1px solid #f6a5c9; }
-        .preview-label { font-size: 12px; color: var(--dark); font-weight: bold; margin-bottom: 8px; display: block; }
         .copy-group { display: flex; gap: 5px; margin-bottom: 10px; }
-        .url-input { flex: 1; background: white; border: 1px solid #f6a5c9; padding: 8px 12px; border-radius: 12px; font-size: 11px; color: #777; outline: none; }
-        .btn-action-copy { background: var(--main); color: white; border: none; padding: 0 15px; border-radius: 12px; font-size: 12px; cursor: pointer; font-family: 'Mitr'; }
+        .url-input { flex: 1; background: white; border: 1px solid #f6a5c9; padding: 8px 12px; border-radius: 12px; font-size: 11px; outline: none; }
+        .btn-action-copy { background: var(--main); color: white; border: none; padding: 0 15px; border-radius: 12px; font-size: 12px; cursor: pointer; }
         .btn-action-open { display: block; background: var(--dark); color: white; text-decoration: none; text-align: center; padding: 10px; border-radius: 12px; font-size: 13px; font-weight: 500; }
-
-        .desc-box { text-align: left; font-size: 14px; background: #FFF9FB; padding: 15px; border-radius: 15px; border: 1px dashed var(--main); margin: 15px 0; line-height: 1.6; }
         .btn-line { display: block; background: #06C755; color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 18px; }
     </style>
 </head>
 <body>
     <div id="bg-stickers"></div>
     <header class="shop-header"><h1>M.SHABU.HOUSE</h1></header>
-    
     <div class="search-area">
-        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาสินค้าที่ต้องการ...">
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 ค้นหาสินค้า...">
         <div class="tab-container">
             <button onclick="filterData('all')" class="tab-btn active" id="btn-all">ทั้งหมด</button>
             <button onclick="filterData('ฟอนต์')" class="tab-btn" id="btn-font">ฟอนต์</button>
@@ -67,18 +59,10 @@
             <button onclick="filterData('กลุ่มอื่นๆ')" class="tab-btn" id="btn-other">กลุ่มอื่นๆ</button>
         </div>
     </div>
-
     <div class="catalog-grid" id="catalogDisplay"></div>
-
-    <div id="itemModal" class="modal">
-        <div class="modal-content">
-            <span onclick="closeModal()" style="position:absolute; top:10px; right:20px; font-size:30px; cursor:pointer; z-index:10;">&times;</span>
-            <div class="modal-body" id="modalBody"></div>
-        </div>
-    </div>
+    <div id="itemModal" class="modal"><div class="modal-content"><span onclick="closeModal()" style="position:absolute; top:10px; right:20px; font-size:30px; cursor:pointer; z-index:10;">&times;</span><div class="modal-body" id="modalBody"></div></div></div>
 
     <script>
-        // --- ส่วนลิงก์ Google Sheets (ตรวจสอบ Gid ให้ถูกต้อง) ---
         const sheetFont = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=853596946&single=true&output=csv';
         const sheetGroup = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=0&single=true&output=csv';
         const sheetOther = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRshgMLFJ4id3I053uS9T-A_AYtNqDss27C4J6DBeU3ajtpZy-BxoCoOA6bpLEzfmlTtQ2tywho0zHf/pub?gid=1945384279&single=true&output=csv';
@@ -86,7 +70,6 @@
         let dataStore = [];
         let currentFilter = 'all';
 
-        // ฟังก์ชันล้างข้อมูลขยะ (ทำความสะอาดชื่อสินค้า/ลิงก์)
         const clean = (v) => v ? v.toString().trim().replace(/^"|"$/g, '') : "";
 
         function loadSheet(url, cat) {
@@ -94,93 +77,63 @@
                 Papa.parse(url, {
                     download: true,
                     header: false,
-                    skipEmptyLines: true,
                     complete: function(results) {
                         const checkP = (v) => (v && v.trim() !== "" && v.trim() !== "-") ? v.trim() : null;
-                        const parsedData = results.data.slice(1).map(c => {
-                            if (!clean(c[1])) return null; 
+                        const d = results.data.slice(1).map(c => {
+                            if (!clean(c[1])) return null;
                             if (cat === 'ฟอนต์') {
-                                return { 
-                                    img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), 
-                                    price: clean(c[3]), promo: checkP(clean(c[4])), 
-                                    desc: 'ฟอนต์ลายมือลิขสิทธิ์ M.SHABU.HOUSE', preview: '', cat: 'ฟอนต์' 
-                                };
+                                return { img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), price: clean(c[3]), promo: checkP(clean(c[4])), desc: 'ฟอนต์ลายมือลิขสิทธิ์ M.SHABU.HOUSE', preview: '', cat: 'ฟอนต์' };
                             } else {
-                                return { 
-                                    img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), 
-                                    desc: clean(c[3]), preview: clean(c[4]), 
-                                    price: clean(c[5]), promo: checkP(clean(c[6])), cat: cat 
-                                };
+                                return { img: clean(c[0]), name: clean(c[1]), type: clean(c[2]), desc: clean(c[3]), preview: clean(c[4]), price: clean(c[5]), promo: checkP(clean(c[6])), cat: cat };
                             }
-                        }).filter(x => x !== null);
-                        resolve(parsedData);
-                    },
-                    error: function() { resolve([]); }
+                        }).filter(x => x);
+                        resolve(d);
+                    }
                 });
             });
         }
 
         async function init() {
-            const results = await Promise.all([
-                loadSheet(sheetFont, 'ฟอนต์'),
-                loadSheet(sheetGroup, 'กลุ่ม'),
-                loadSheet(sheetOther, 'กลุ่มอื่นๆ')
-            ]);
+            const results = await Promise.all([loadSheet(sheetFont, 'ฟอนต์'), loadSheet(sheetGroup, 'กลุ่ม'), loadSheet(sheetOther, 'กลุ่มอื่นๆ')]);
             dataStore = results.flat();
             render();
         }
 
         function render() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = dataStore.filter(i => 
-                (i.name && i.name.toLowerCase().includes(search)) && 
-                (currentFilter === 'all' || i.cat === currentFilter)
-            );
-
+            const filtered = dataStore.filter(i => (i.name && i.name.toLowerCase().includes(search)) && (currentFilter === 'all' || i.cat === currentFilter));
             let html = '';
             filtered.forEach((item) => {
-                // ดักจับเฉพาะลิงก์รูปภาพที่ถูกต้อง ป้องกันตัวอักษรขยะ
-                let imgRaw = item.img.split(',')[0].trim();
-                let imgMatch = imgRaw.match(/https?:\/\/[^\s,"]+/);
-                let imgUrl = imgMatch ? imgMatch[0] : 'https://via.placeholder.com/400/fff0f6/e889b5?text=No+Image';
-
-                html += `
-                <div class="card" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
+                let imgUrl = item.img.split(',')[0].trim().match(/https?:\/\/[^\s,"]+/)?.[0] || 'https://via.placeholder.com/400/fff0f6/e889b5?text=No+Image';
+                html += `<div class="card" onclick="openModal('${item.name.replace(/'/g, "\\'")}')">
                     ${item.promo ? `<div class="promo-tag">🔥 PROMO</div>` : ''}
-                    <div class="img-container">
-                        <img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=Error'">
-                    </div>
-                    <div class="card-content">
-                        <div style="font-weight:500; color:var(--dark);">${item.name}</div>
-                        <div style="color:var(--accent); font-weight:bold;">${item.price}฿</div>
-                    </div>
+                    <div class="img-container"><img src="${imgUrl}" onerror="this.src='https://via.placeholder.com/400/fff0f6/e889b5?text=M.SHABU'"></div>
+                    <div class="card-content"><div style="font-weight:500; color:var(--dark);">${item.name}</div><div style="color:var(--accent); font-weight:bold;">${item.price}฿</div></div>
                 </div>`;
             });
-            document.getElementById('catalogDisplay').innerHTML = html || '<p style="grid-column:1/-1; text-align:center;">ไม่พบสินค้าในหมวดนี้ 🎀</p>';
+            document.getElementById('catalogDisplay').innerHTML = html;
         }
 
         window.openModal = (name) => {
             const item = dataStore.find(i => i.name === name);
             if(!item) return;
-            const imgs = item.img.split(',').map(s => {
-                let m = s.trim().match(/https?:\/\/[^\s,"]+/);
-                return m ? m[0] : null;
-            }).filter(u => u !== null);
+            const imgs = item.img.split(',').map(s => s.trim().match(/https?:\/\/[^\s,"]+/)?.[0]).filter(u => u);
             
-            let previewArea = (item.preview && item.preview !== "" && item.preview !== "-") ? `
-                <div class="preview-section">
-                    <span class="preview-label">🔍 ดูตัวอย่างไฟล์เต็ม</span>
-                    <div class="copy-group">
-                        <input type="text" value="${item.preview}" id="urlInput" class="url-input" readonly>
-                        <button class="btn-action-copy" onclick="copyURL()">คัดลอก</button>
-                    </div>
-                    <a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a>
-                </div>` : '';
+            let previewArea = '';
+            if(item.preview && item.preview !== "" && item.preview !== "-") {
+                if (item.cat === 'กลุ่ม') {
+                    previewArea = `<div class="preview-section"><span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span><div class="copy-group"><input type="text" value="${item.preview}" id="urlInput" class="url-input" readonly><button class="btn-action-copy" onclick="copyURL()">คัดลอก</button></div><a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a></div>`;
+                } else if (item.cat === 'กลุ่มอื่นๆ') {
+                    previewArea = `<div class="preview-section"><span style="font-size:12px; color:var(--dark); font-weight:bold; margin-bottom:8px; display:block;">🔍 ดูตัวอย่างไฟล์เต็ม</span><a href="${item.preview}" target="_blank" class="btn-action-open">กดเพื่อเปิดดูรูปภาพตัวอย่าง</a></div>`;
+                }
+            }
 
             document.getElementById('modalBody').innerHTML = `
                 <h2 style="color:var(--dark); margin-top:0; font-size:22px;">${item.name}</h2>
                 <img src="${imgs[0]}" id="mainV" class="main-view">
-                <div class="thumb-list">${imgs.map(u => `<img src="${u}" class="thumb-img" onclick="document.getElementById('mainV').src='${u}'">`).join('')}</div>
+                <div style="display:flex; gap:8px; justify-content:center; margin-bottom:15px; flex-wrap:wrap;">
+                    ${imgs.map(u => `<img src="${u}" style="width:50px;height:50px;object-fit:cover;border-radius:10px;cursor:pointer;border:2px solid #eee" onclick="document.getElementById('mainV').src='${u}'">`).join('')}
+                </div>
                 ${item.promo ? `<div style="background:#fff4e5;color:#d35400;padding:12px;border-radius:15px;font-size:14px;margin-bottom:12px;font-weight:500;">🔥 โปรโมชั่น: ${item.promo}</div>` : ''}
                 <div class="desc-box">${item.desc}</div>
                 ${previewArea}
@@ -191,27 +144,16 @@
             document.body.style.overflow = 'hidden';
         }
 
-        window.copyURL = () => {
-            const input = document.getElementById("urlInput");
-            input.select();
-            document.execCommand("copy");
-            alert("คัดลอกลิงก์ตัวอย่างแล้ว! 🎀");
-        }
-
-        window.closeModal = () => {
-            document.getElementById('itemModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
+        window.copyURL = () => { const input = document.getElementById("urlInput"); input.select(); document.execCommand("copy"); alert("คัดลอกลิงก์ตัวอย่างแล้ว! 🎀"); }
+        window.closeModal = () => { document.getElementById('itemModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
         window.filterData = (cat) => {
             currentFilter = cat;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            const map = {'all':'btn-all', 'ฟอนต์':'btn-font', 'กลุ่ม':'btn-group', 'กลุ่มอื่นๆ':'btn-other'};
-            document.getElementById(map[cat]).classList.add('active');
+            const idMap = {'all':'btn-all', 'ฟอนต์':'btn-font', 'กลุ่ม':'btn-group', 'กลุ่มอื่นๆ':'btn-other'};
+            document.getElementById(idMap[cat]).classList.add('active');
             render();
         };
 
-        // Sticker System
         setInterval(() => {
             const s = document.createElement('div');
             s.className = 'sticker'; s.innerText = ['🌷', '🧸', '🍮', '🐶'][Math.floor(Math.random()*4)];
